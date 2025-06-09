@@ -32,31 +32,39 @@ public class TicTacToe {
 
     public void selezionaPosizione (String[][] map) throws PosizioneException{
         if (getTurno()%2 == 0) {
-            System.out.println("\nScegli in che posizione mettere la X!");
-            System.out.print("riga + colonna: ");
-            posizioneRigaX = scanner.nextInt();
-            posizioneColonnaX = scanner.nextInt();
-            if (posizioneRigaX < 0 || posizioneRigaX >= 3 || posizioneColonnaX >= 3 || posizioneColonnaX < 0){
-                throw new PosizioneException("Posizione non valida");
-            }
-            else{
-                map[posizioneRigaX][posizioneColonnaX] = "X";
-                updateTurno();
-            }
+            do{
+                System.out.println("\nScegli in che posizione mettere la X!");
+                System.out.print("riga + colonna: ");
+                posizioneRigaX = scanner.nextInt();
+                posizioneColonnaX = scanner.nextInt();
+                if (posizioneRigaX < 0 || posizioneRigaX >= 3 || posizioneColonnaX < 0 || posizioneColonnaX >= 3){
+                    throw new PosizioneException("Posizione non valida");
+                }
+            }while (getPosizioneOccupata(map, posizioneRigaX, posizioneColonnaX));
+            map[posizioneRigaX][posizioneColonnaX] = "X";
+            updateTurno();
         }
         else{
-            System.out.println("\nScegli in che posizione mettere il O!");
-            System.out.print("riga + colonna: ");
-            posizioneRigaO = scanner.nextInt();
-            posizioneColonnaO = scanner.nextInt();
-            if (posizioneRigaO < 0 || posizioneRigaO >= 3 || posizioneColonnaO < 0 || posizioneColonnaO >= 3){
-                throw new PosizioneException("Posizione non valida");
-            }
-            else{
-                map[posizioneRigaO][posizioneColonnaO] = "O";
-                updateTurno();
-            }
+            do{
+                System.out.println("\nScegli in che posizione mettere il O!");
+                System.out.print("riga + colonna: ");
+                posizioneRigaO = scanner.nextInt();
+                posizioneColonnaO = scanner.nextInt();
+                if (posizioneRigaO < 0 || posizioneRigaO >= 3 || posizioneColonnaO < 0 || posizioneColonnaO >= 3){
+                    throw new PosizioneException("Posizione non valida");
+                }
+            }while(getPosizioneOccupata(map, posizioneRigaO, posizioneColonnaO));
+            map[posizioneRigaO][posizioneColonnaO] = "O";
+            updateTurno();
         }
+    }
+
+    public boolean getPosizioneOccupata(String[][] map, int riga, int colonna){
+        if (!map[riga][colonna].equals("|")){
+            System.out.println("Posizione occupata!");
+            return true;
+        }
+        return false;
     }
 
 }
