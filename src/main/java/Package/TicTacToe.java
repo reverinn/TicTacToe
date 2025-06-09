@@ -8,13 +8,10 @@ import Exception.PosizioneException;
 public class TicTacToe {
     Scanner scanner = new Scanner(System.in);
     private int turno = 1;
-    private int posizioneRigaX = 0;
-    private int posizioneColonnaX = 0;
-    private int posizioneRigaO = 0;
-    private int posizioneColonnaO = 0;
     private int puntiX = 0;
     private int puntiO = 0;
 
+    //costruttore vuoto per creare l'oggetto di test nel main
     public TicTacToe() {}
 
     public void setPuntiX(int puntiX){ this.puntiX = puntiX; }
@@ -43,6 +40,10 @@ public class TicTacToe {
 
     //metodo che permette di posizionare la propria "pedina" e gestisce le varie eventualità scomode
     public void selezionaPosizione (String[][] map) throws PosizioneException{
+        int posizioneRigaX = 0;
+        int posizioneColonnaX = 0;
+        int posizioneRigaO = 0;
+        int posizioneColonnaO = 0;
         if (getTurno()%2 == 0) { //se il turno è pari gioca la X, senno il O
             do{
                 System.out.println("\nScegli in che posizione mettere la X!");
