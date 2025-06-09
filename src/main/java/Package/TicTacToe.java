@@ -3,6 +3,8 @@ package Package;
 import java.util.Scanner;
 import Exception.PosizioneException;
 
+//RICORDA: AGGIUNGI METODI PER PAREGGIO E PER TRIS DIAGONALE!!
+
 public class TicTacToe {
     Scanner scanner = new Scanner(System.in);
     private int turno = 1;
@@ -15,21 +17,11 @@ public class TicTacToe {
 
     public TicTacToe() {}
 
-    public void setPuntiX(int puntiX){
-        this.puntiX = puntiX;
-    }
+    public void setPuntiX(int puntiX){ this.puntiX = puntiX; }
+    public int getPuntiX(){ return puntiX; }
 
-    public int getPuntiX(){
-        return puntiX;
-    }
-
-    public void setPuntiO(int puntiO){
-        this.puntiO = puntiO;
-    }
-
-    public int getPuntiO(){
-        return puntiO;
-    }
+    public void setPuntiO(int puntiO){ this.puntiO = puntiO; }
+    public int getPuntiO(){ return puntiO; }
 
     public void updateTurno(){
         turno++;
@@ -39,6 +31,7 @@ public class TicTacToe {
         return turno;
     }
 
+    //metodo che stampa la mappa
     public void stampaMap(String[][] map){
         for(int i = 0; i < 3; i++){
             System.out.print("\n");
@@ -48,8 +41,9 @@ public class TicTacToe {
         }
     }
 
+    //metodo che permette di posizionare la propria "pedina" e gestisce le varie eventualità scomode
     public void selezionaPosizione (String[][] map) throws PosizioneException{
-        if (getTurno()%2 == 0) {
+        if (getTurno()%2 == 0) { //se il turno è pari gioca la X, senno il O
             do{
                 System.out.println("\nScegli in che posizione mettere la X!");
                 System.out.print("riga + colonna: ");
@@ -60,7 +54,7 @@ public class TicTacToe {
                 }
             }while (getPosizioneOccupata(map, posizioneRigaX, posizioneColonnaX));
             map[posizioneRigaX][posizioneColonnaX] = "X";
-            updateTurno();
+            updateTurno(); //updato il turno cosi che possa andare avanti
         }
         else{
             do{
@@ -77,6 +71,7 @@ public class TicTacToe {
         }
     }
 
+    //verifica se una posizione è gia occupata dall'altro giocatore
     public boolean getPosizioneOccupata(String[][] map, int riga, int colonna){
         if (!map[riga][colonna].equals("|")){
             System.out.println("Posizione occupata!");
@@ -85,6 +80,7 @@ public class TicTacToe {
         return false;
     }
 
+    //metodi per aggiornare il punteggio dei giocatori
     public void vittoriaX(){
         System.out.println("Tris! Ha vinto la X!");
         setPuntiX(getPuntiX() + 1);
@@ -95,9 +91,9 @@ public class TicTacToe {
         setPuntiO((getPuntiO()) + 1);
     }
 
-
+    //metodo che controlla riga per riga se è avvenuto un tris e sopratutto scansa il problema del tris "vuoto" (cioè evita che il programma conti le caselle vuote come tris)
     public boolean controllaRighe(String[][] map){
-        if (map[0][0].equals(map[0][1]) && map[0][1].equals(map[0][2]) && !map[0][0].equals("|")){
+        if (map[0][0].equals(map[0][1]) && map[0][1].equals(map[0][2]) && !map[0][0].equals("|")){ //in questi if controllo riga per riga e in base a chi fa il tris aggiorno il punteggio
             if (map[0][0].equals("X")){
                 vittoriaX();
             }
@@ -127,6 +123,7 @@ public class TicTacToe {
         return false;
     }
 
+    //stessa cosa del metodo ControllaRighe
     public boolean controllaColonne(String[][] map){
         if (map[0][0].equals(map[1][0]) && map[1][0].equals(map[2][0]) && !map[0][0].equals("|")){
             if (map[0][0].equals("X")){
@@ -158,6 +155,7 @@ public class TicTacToe {
         return false;
     }
 
+    //verifica che sia avvenuto un tris da qualche parte
     public boolean controllaVittoria(String[][] map){
         if (controllaRighe(map) || controllaColonne(map)) {
             System.out.println("Gioco Finito!");
@@ -167,6 +165,7 @@ public class TicTacToe {
         return false;
     }
 
+    //resetta la mappa
     public void resetMap(String[][] map){
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
