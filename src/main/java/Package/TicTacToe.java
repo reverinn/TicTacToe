@@ -3,7 +3,7 @@ package Package;
 import java.util.Scanner;
 import Exception.PosizioneException;
 
-//RICORDA: AGGIUNGI METODI PER PAREGGIO E PER TRIS DIAGONALE!!
+
 
 public class TicTacToe {
     Scanner scanner = new Scanner(System.in);
