@@ -20,10 +20,14 @@ public class TicTacToe {
     public void setPuntiO(int puntiO){ this.puntiO = puntiO; }
     public int getPuntiO(){ return puntiO; }
 
+    public void stampaClassifica(){ System.out.println("Classifiche: \nX = " + getPuntiX() + "\nO = " + getPuntiO()); }
+
+    //tutti i metodi per interagire con turno
     public void updateTurno(){
         turno++;
     }
-
+    public void resetTurno(){ setTurno(1); }
+    public void setTurno(int turno) { this.turno = turno; }
     public int getTurno(){
         return turno;
     }
@@ -156,11 +160,35 @@ public class TicTacToe {
         return false;
     }
 
+    //idem dei metodi controlla precedenti
+    public boolean controllaDiagonale(String[][] map){
+        if (map[0][0].equals(map[1][1]) && map[1][1].equals(map[2][2]) && !map[0][0].equals("|")){
+            if (map[0][0].equals("X")){
+                vittoriaX();
+            }
+            else if (map[0][0].equals("O")){
+                vittoriaO();
+            }
+            return true;
+        }
+        else if (map[0][2].equals(map[1][1]) && map[1][1].equals(map[2][0]) && !map[0][2].equals("|")){
+            if (map[0][2].equals("X")){
+                vittoriaX();
+            }
+            else if (map[0][2].equals("O")){
+                vittoriaO();
+            }
+            return true;
+        }
+        return false;
+    }
+
+
     //verifica che sia avvenuto un tris da qualche parte
     public boolean controllaVittoria(String[][] map){
-        if (controllaRighe(map) || controllaColonne(map)) {
+        if (controllaRighe(map) || controllaColonne(map) || controllaDiagonale(map)) {
             System.out.println("Gioco Finito!");
-            System.out.println("Classifiche: \nX = " + getPuntiX() + "\nO = " + getPuntiO());
+            stampaClassifica();
             return true;
         }
         return false;

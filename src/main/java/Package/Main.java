@@ -18,13 +18,21 @@ public class Main {
             game.stampaMap(map);
             while (!game.controllaVittoria(map)) { //il ciclo vale finchè non avviene un tris
                 try {
-                    game.selezionaPosizione(map);
+                    if (game.getTurno() > 9){
+                        System.out.println("Pareggio!!");
+                        game.stampaClassifica(); //Stampo la classifica e concludo il giorno
+                        break;
+                    }
+                    else {
+                        game.selezionaPosizione(map);
+                    }
                 } catch (PosizioneException e) { //eccezione per quando l'utente prova una posizione occupata o invalida
                     System.out.println(e.getMessage());
                 }
                 game.stampaMap(map);
             }
             game.resetMap(map); //resetto la mappa
+            game.resetTurno(); //resetto il numero di turni
         }while (scelta != 'n');
     }
 }
